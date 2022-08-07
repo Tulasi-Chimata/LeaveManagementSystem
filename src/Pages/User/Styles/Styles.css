@@ -1,0 +1,23 @@
+.alldetailscard{
+    margin-left: 35%;
+    padding-top: 5%;
+}
+
+.alldetailscard svg{
+    color: red;
+    
+    width:5%;
+  height: 1%;
+margin-left: 18%;
+margin-bottom: 5%;
+    
+}
+.alldetailscard .title{
+    margin-left: 18%;
+    
+margin-bottom: 5%;
+}
+
+.checker{
+    padding-bottom: 5%;
+}
