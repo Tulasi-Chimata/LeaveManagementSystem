@@ -37,6 +37,8 @@ function Permission() {
   return (
     <div>
         <Headers/>
+        <br></br>
+        <br></br>
         <br/><br/>
         <input value={roleCode} onChange={(e)=>setRoleCode(e.target.value)}/>
         <input value={roleDescription} onChange={(e)=>setRoleDescription(e.target.value)}/>

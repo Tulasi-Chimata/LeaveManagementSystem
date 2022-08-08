@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import '../Styles/Styles.css'
 import Headers from '../../Navbar/Headers';
-
+import { ToastContainer, toast } from 'react-toastify';
 function AllDetails() {
     const { id } = useParams()
     const [leaves, setLeaves] = useState('')
@@ -36,7 +36,7 @@ function AllDetails() {
                 }
             }
         }else{
-            alert("The Request Has Been Answered You Cannot Remove This Request")
+            toast("The Request Has Been Answered You Cannot Remove This Request")
         }
         
         
@@ -45,6 +45,8 @@ function AllDetails() {
     return (
         <div>
             <Headers/>
+            <br></br><br></br><br></br>
+            <ToastContainer/>
             <div className='alldetailscard'>
                 <Card style={{ width: '28rem' }}>
                     <Card.Body>

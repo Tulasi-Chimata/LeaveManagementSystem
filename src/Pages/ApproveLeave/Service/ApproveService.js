@@ -15,7 +15,7 @@ class Approve{
 
 
     deleteById(id){
-        return axios.delete(VIEW_BASE_URL+'/'+id)
+        return axios.delete(VIEW_BASE_URL+'/deleteleaverequest/'+id)
     }
 
     getBySuperVisor(supervisor){

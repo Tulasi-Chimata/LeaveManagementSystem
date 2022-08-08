@@ -4,6 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
 import { fetchUserData } from "../../Api/AuthenticationService";
+import "./Styles/Header.css";
 
 function Headers() {
   const [data, setData] = useState({});
@@ -27,7 +28,7 @@ function Headers() {
 
   return (
     <div>
-      <Navbar bg="dark" variant="dark">
+      <Navbar className="navbarfs" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand href="/dashboard">LeaveManagement</Navbar.Brand>
           <Nav className="me-auto">
@@ -37,42 +38,29 @@ function Headers() {
                 .length && (
                 <Nav.Link href="/approvallist">Approve Leave</Nav.Link>
               )}
-            {data &&
-              data.roles &&
-              data.roles.filter((value) => value.roleCode === "ADMIN")
-                .length && (
-                <Nav.Link href="/signup">Register New User</Nav.Link>
-              )}
-            {data &&
-              data.roles &&
-              data.roles.filter((value) => value.roleCode === "ADMIN")
-                .length && (
-                <Nav.Link href="/grantAuthority">Grant Authority</Nav.Link>
-              )}
+
             {data &&
               data.roles &&
               data.roles.filter((value) => value.roleCode === "ADMIN")
                 .length && <Nav.Link href="/profile">Profile</Nav.Link>}
-            {data &&
-              data.roles &&
-              data.roles.filter((value) => value.roleCode === "ADMIN")
-                .length && (
-                <Nav.Link href="/viewEmployees">viewEmployees</Nav.Link>
-              )}
 
             {data &&
               data.roles &&
               data.roles.filter((value) => value.roleCode === "ADMIN")
                 .length && <Nav.Link href="/calendar">Calendar</Nav.Link>}
 
+          
+
+            
+
+            {data &&
+              data.roles &&
+              data.roles.filter((value) => value.roleCode === "MANAGER")
+                .length && <Nav.Link href="/calendar">Calendar</Nav.Link>}
             {data &&
               data.roles &&
               data.roles.filter((value) => value.roleCode === "USER")
-                .length && <Nav.Link href="/addleave">ADD Leave</Nav.Link>}
-            {data &&
-              data.roles &&
-              data.roles.filter((value) => value.roleCode === "USER")
-                .length && <Nav.Link href="leaves">Leave History</Nav.Link>}
+                .length && <Nav.Link href="leaves">History</Nav.Link>}
             {data &&
               data.roles &&
               data.roles.filter((value) => value.roleCode === "USER")
@@ -83,34 +71,9 @@ function Headers() {
               data.roles.filter((value) => value.roleCode === "USER")
                 .length && <Nav.Link href="/calendar">Calendar</Nav.Link>}
 
-            {data &&
-              data.roles &&
-              data.roles.filter((value) => value.roleCode === "MANAGER")
-                .length && (
-                <Nav.Link href="/approvallist">Approve Leave</Nav.Link>
-              )}
-            {data &&
-              data.roles &&
-              data.roles.filter((value) => value.roleCode === "MANAGER")
-                .length && <Nav.Link href="/addleave">ADD Leave</Nav.Link>}
-            {data &&
-              data.roles &&
-              data.roles.filter((value) => value.roleCode === "MANAGER")
-                .length && <Nav.Link href="/profile">Profile</Nav.Link>}
-
-            {data &&
-              data.roles &&
-              data.roles.filter((value) => value.roleCode === "MANAGER")
-                .length && (
-                <Nav.Link href="/viewEmployees">viewEmployees</Nav.Link>
-              )}
-
-            {data &&
-              data.roles &&
-              data.roles.filter((value) => value.roleCode === "MANAGER")
-                .length && <Nav.Link href="/calendar">Calendar</Nav.Link>}
-
-            <Nav.Link onClick={() => Logout()}>Logout</Nav.Link>
+            <Nav.Link className="logoutcss" onClick={() => Logout()}>
+              Logout
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>

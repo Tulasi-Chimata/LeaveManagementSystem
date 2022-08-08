@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { fetchUserData } from '../../Api/AuthenticationService'
 import Headers from '../Navbar/Headers'
 import emailjs from 'emailjs-com';
-
+import { ToastContainer, toast } from 'react-toastify';
 
 
 function Signup() {
@@ -29,7 +29,9 @@ function Signup() {
         })
       }, [])
 
-      
+      useEffect(()=>{
+        setPassword("123456789")
+      },[])
 
 
       useEffect(()=>{
@@ -52,7 +54,7 @@ function Signup() {
         }).then((response)=>{
             console.log(response);
             if(!response.ok){
-                alert("User Already Exists try Logining in")
+                toast("User Already Exists try Logining in");
                 throw Error("User Already Exists With The Emailid")
                 
             }
@@ -64,10 +66,10 @@ function Signup() {
                     console.log(error.text);
                 });
                 usenavigate('/')
-                console.log("User Added")
+                toast.success("User Added")
             }
         }).catch((error)=>{
-            console.log("User Already Present")
+            toast("User Already Present")
         })
         console.log(adddetails)
     }
@@ -82,6 +84,7 @@ function Signup() {
 
     return (
         <div >
+            <ToastContainer />
             <Headers/>
             <div className='login'>
             <section>
@@ -138,7 +141,7 @@ function Signup() {
 
                                                 <div className="gradient">
                                                     <input id="password" type="password" minLength={8}
-                                                       placeholder='Enter Password' name="password" onChange={(e)=>setPassword(e.target.value)} value={password} required />
+                                                       placeholder='Enter Password' name="password"  value={password} required />
                                                     <div className="invalid-feedback">
                                                         Password is required
                                                     </div>

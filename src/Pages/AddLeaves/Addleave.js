@@ -91,6 +91,8 @@ const AddLeave = () => {
     return (
         <div>
             <Headers />
+            <br></br>
+            <br></br>
             <br /><br />
             <div className="container">
                 <div className="row">

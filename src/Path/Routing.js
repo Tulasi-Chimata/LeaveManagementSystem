@@ -19,6 +19,9 @@ import ViewRedirect from '../Pages/Userprofile/ViewRedirect'
 import EditRedirect from '../Pages/Userprofile/EditRedirect'
 
 import Calendar from '../Pages/Calendar'
+import Adminmanager from '../Pages/ApproveLeave/Admin/Adminmanager'
+import ViewRequest from '../Pages/ApproveLeave/Admin/ViewRequest'
+import Adminresponse from '../Pages/ApproveLeave/Admin/Adminresponse'
 
 
 
@@ -42,6 +45,9 @@ function Routing() {
             <Route path='/changepassword' element={<Password/>}/>
             <Route path='/managerreq/:id' element={<ManagerReq/>}/>
             <Route path='/viewEmployees' element={<ViewEmployees/>}/>
+            <Route path='/viewRequests' element={<Adminmanager/>}/>
+            <Route path='/viewDetails/:id' element={<ViewRequest/>}/>
+            <Route path='/adminresponse' element={<Adminresponse/>}/>
             <Route path='/calendar' element={<Calendar/>}/>
         </Routes>
     </BrowserRouter>

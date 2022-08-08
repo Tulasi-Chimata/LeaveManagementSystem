@@ -6,7 +6,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux';
 import store from './Redux/Store';
-
+import 'react-toastify/dist/ReactToastify.css';
 ReactDOM.render(
   <Provider store={store}>
   <React.StrictMode>
