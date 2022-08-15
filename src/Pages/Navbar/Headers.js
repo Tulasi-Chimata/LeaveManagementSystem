@@ -49,10 +49,6 @@ function Headers() {
               data.roles.filter((value) => value.roleCode === "ADMIN")
                 .length && <Nav.Link href="/calendar">Calendar</Nav.Link>}
 
-          
-
-            
-
             {data &&
               data.roles &&
               data.roles.filter((value) => value.roleCode === "MANAGER")

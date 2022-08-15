@@ -130,13 +130,6 @@ const AddLeave = () => {
 
                                 
 
-
-
-
-
-
-
-
                                 <div className="form-group mb-2">
                                     <label className="form-label"> Reason :</label>
 
@@ -150,20 +143,6 @@ const AddLeave = () => {
                                     >
                                     </input>
                                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                                 <button className="btn btn-success" >Submit </button>
