@@ -4,11 +4,12 @@ import Headers from "../Navbar/Headers";
 import * as BootStrap from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Service from "../Userprofile/Service";
-
+import "./style.css";
+import $ from "jquery";
 function ViewEmployees() {
   const [data, setData] = useState({});
   const [user, setUser] = useState([]);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const usenavigate = useNavigate();
 
   useEffect(() => {
@@ -41,6 +42,107 @@ function ViewEmployees() {
       });
   };
 
+  $(document).ready(function () {
+    var itemsMainDiv = ".MultiCarousel";
+    var itemsDiv = ".MultiCarousel-inner";
+    var itemWidth = "";
+
+    $(".leftLsts, .rightLsts").click(function () {
+      var condition = $(this).hasClass("leftLsts");
+      if (condition) click(0, this);
+      else click(1, this);
+    });
+
+    ResCarouselSize();
+
+    $(window).resize(function () {
+      ResCarouselSize();
+    });
+
+    function ResCarouselSize() {
+      var incno = 0;
+      var dataItems = "data-items";
+      var itemClass = ".item";
+      var id = 0;
+      var btnParentSb = "";
+      var itemsSplit = "";
+      var sampwidth = $(itemsMainDiv).width();
+      var bodyWidth = $("body").width();
+      $(itemsDiv).each(function () {
+        id = id + 1;
+        var itemNumbers = $(this).find(itemClass).length;
+        btnParentSb = $(this).parent().attr(dataItems);
+        itemsSplit = btnParentSb.split(",");
+        $(this)
+          .parent()
+          .attr("id", "MultiCarousel" + id);
+
+        if (bodyWidth >= 2000) {
+          incno = itemsSplit[3];
+          itemWidth = sampwidth / incno;
+        } else if (bodyWidth >= 1492) {
+          incno = itemsSplit[1];
+          itemWidth = sampwidth / incno;
+        } else if (bodyWidth >= 668) {
+          incno = itemsSplit[1];
+          itemWidth = sampwidth / incno;
+        } else {
+          incno = itemsSplit[5];
+          itemWidth = sampwidth / incno;
+        }
+        $(this).css({
+          transform: "translateX(0px)",
+          width: itemWidth * itemNumbers,
+        });
+        $(this)
+          .find(itemClass)
+          .each(function () {
+            $(this).outerWidth(itemWidth);
+          });
+
+        $(".leftLsts").addClass("over");
+        $(".rightLsts").removeClass("over");
+      });
+    }
+
+    function ResCarousel(e, el, s) {
+      var leftBtn = ".leftLsts";
+      var rightBtn = ".rightLsts";
+      var translateXval = "";
+      var divStyle = $(el + " " + itemsDiv).css("transform");
+      var values = divStyle.match(/-?[\d\.]+/g);
+      var xds = Math.abs(values[4]);
+      if (e == 0) {
+        translateXval = parseInt(xds) - parseInt(itemWidth * s);
+        $(el + " " + rightBtn).removeClass("over");
+
+        if (translateXval <= itemWidth / 2) {
+          translateXval = 0;
+          $(el + " " + leftBtn).addClass("over");
+        }
+      } else if (e == 1) {
+        var itemsCondition = $(el).find(itemsDiv).width() - $(el).width();
+        translateXval = parseInt(xds) + parseInt(itemWidth * s);
+        $(el + " " + leftBtn).removeClass("over");
+
+        if (translateXval >= itemsCondition - itemWidth / 2) {
+          translateXval = itemsCondition;
+          $(el + " " + rightBtn).addClass("over");
+        }
+      }
+      $(el + " " + itemsDiv).css(
+        "transform",
+        "translateX(" + -translateXval + "px)"
+      );
+    }
+
+    function click(ell, ee) {
+      var Parent = "#" + $(ee).parent().attr("id");
+      var slide = $(Parent).attr("data-slide");
+      ResCarousel(ell, Parent, slide);
+    }
+  });
+
   React.useEffect(() => {
     fetchUserData()
       .then((response) => {
@@ -69,19 +171,18 @@ function ViewEmployees() {
   }
 
   return (
-    <div>
+    <div style={{overflow:"hidden"}}>
       <Headers />
       <br></br>
       <br />
       <br />
-      <div className="container">
+      <div className="container" style={{width:"20%"}}>
         <div class="input-group rounded">
           <input
             type="search"
             class="form-control rounded"
             placeholder="Search"
             aria-label="Search"
-            
             aria-describedby="search-addon"
             onChange={(e) => setQuery(e.target.value)}
           />
@@ -91,27 +192,44 @@ function ViewEmployees() {
         </div>
       </div>
       <br></br>
-      <br></br>
-      <div className="">
-        <BootStrap.Row xs={1} md={4}>
-          {user
-            .filter((user) => {
-              if(query===""){
-                return user;
-              }else if(user.email.toLowerCase().includes(query.toLowerCase())){
-                return user;
-              }else if(user.username.includes(query.toLowerCase())){ 
-                return user;
-              }else if(user.designation.toLowerCase().includes(query.toLowerCase())){ 
-                return user;
-              }
-            })
-            .map((user) => 
-              <BootStrap.Col>
-                <div>
-                  <BootStrap.CardGroup>
-                    <BootStrap.Card>
-                      <BootStrap.Card.Body>
+      <br></br>{" "}
+      <div className="container">
+        <a href="http://localhost:8888/addnew/generate/export" download>
+          Generate List In Excel
+        </a>
+        <br></br>
+        <br></br>
+      </div>
+      <div class="containeriknjein" >
+        <div class="row">
+          <div
+            class="MultiCarousel"
+            data-items="1,3,5,6"
+            data-slide="1"
+            id="MultiCarousel"
+            data-interval="1"
+          >
+            <div class="MultiCarousel-inner">
+              {user
+                .filter((user) => {
+                  if (query === "") {
+                    return user;
+                  } else if (
+                    user.email.toLowerCase().includes(query.toLowerCase())
+                  ) {
+                    return user;
+                  } else if (user.username.includes(query.toLowerCase())) {
+                    return user;
+                  } else if (
+                    user.designation.toLowerCase().includes(query.toLowerCase())
+                  ) {
+                    return user;
+                  }
+                })
+                .map((user) => (
+                  <div className="item">
+                    <BootStrap.Card  style={{ width: "100%"}}>
+                      <BootStrap.Card.Body className="card">
                         <BootStrap.Card.Text>
                           UserId : {user.id}
                         </BootStrap.Card.Text>
@@ -131,69 +249,43 @@ function ViewEmployees() {
 
                       <br></br>
                       <BootStrap.Button
+                        style={{width:"20%",position:"absolute",marginLeft:"10%",marginTop:"80%"}}
                         onClick={() => editEmployees(user.id)}
                         className="btn btn-info"
                       >
                         Edit
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          class="bi bi-pencil"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                        </svg>
+                        
                       </BootStrap.Button>
 
                       <br></br>
                       <BootStrap.Button
+                      style={{width:"25%",position:"absolute",marginLeft:"35%",marginTop:"80%"}}
                         onClick={() => viewEmployees(user.id)}
                         className="btn btn-success"
                       >
                         {" "}
                         View
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          class="bi bi-eye"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
-                          <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                        </svg>
+                        
                       </BootStrap.Button>
                       <br></br>
                       <BootStrap.Button
+                      style={{width:"30%",position:"absolute",marginLeft:"65%",marginTop:"80%"}}
                         onClick={() => deleteEmployees(user.id)}
                         className="btn btn-danger"
                       >
                         Delete
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          class="bi bi-trash"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                          <path
-                            fill-rule="evenodd"
-                            d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
-                          />
-                        </svg>
+                       
                       </BootStrap.Button>
                     </BootStrap.Card>
-                  </BootStrap.CardGroup>
-                </div>
-              </BootStrap.Col>
-            )}
-        </BootStrap.Row>
+                  </div>
+                ))}
+            </div>
+            <button style={{marginTop:"5%",marginLeft:"130%"}} class="btn btn-primary leftLsts"> ← </button>
+            <button style={{marginTop:"-6.8%",marginLeft:"135%"}} class="btn btn-primary rightLsts"> → </button>
+          </div>
+        </div>
       </div>
+      <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </div>
   );
 }

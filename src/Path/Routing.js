@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {BrowserRouter, Routes , Route} from 'react-router-dom'
 import ViewEmployees from '../Pages/Userprofile/ViewEmployees'
 import Addleave from '../Pages/AddLeaves/Addleave'
@@ -22,15 +22,34 @@ import Calendar from '../Pages/Calendar'
 import Adminmanager from '../Pages/ApproveLeave/Admin/Adminmanager'
 import ViewRequest from '../Pages/ApproveLeave/Admin/ViewRequest'
 import Adminresponse from '../Pages/ApproveLeave/Admin/Adminresponse'
+import Chart from '../Pages/Charts/Chart'
+import { fetchUserData } from '../Api/AuthenticationService'
 
 
 
 function Routing() {
+  const [data,setData] = useState([])
+  const [roleCode,setRoleCode] = useState("")
+  React.useEffect(()=>{
+    fetchUserData().then((response)=>{
+      setData(response.data)
+      setRoleCode(response.data.roleCode)
+    }).catch((err)=>{
+      console.log(err)
+    })
+  })
+  
   return (
     <BrowserRouter>
         <Routes>
             <Route path='/' element={<Login/>}/>
+            {localStorage.getItem("USER_KEY") &&
+            <>
+              {roleCode ==="ADMIN" &&
             <Route path='/signup' element={<Signup/>}/>
+            
+            }
+            </>}
             <Route path='/dashboard' element={<Dashboard/>}/>
             <Route path='/addleave' element={<Addleave/>}/>
             <Route path='/leaves' element={<ViewLeave/>}/>
@@ -49,6 +68,8 @@ function Routing() {
             <Route path='/viewDetails/:id' element={<ViewRequest/>}/>
             <Route path='/adminresponse' element={<Adminresponse/>}/>
             <Route path='/calendar' element={<Calendar/>}/>
+            <Route path='/chart' element={<Chart/>}/>
+            <Route path='*' element={<Login/>}/>
         </Routes>
     </BrowserRouter>
   )

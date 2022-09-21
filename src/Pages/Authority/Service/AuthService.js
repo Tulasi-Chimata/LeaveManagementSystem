@@ -14,6 +14,9 @@ class AuthService{
     getById(id){
         return axios.get(VIEW_BASE_URL+'/getAuthority/'+id)
     }
+    getExcel(){
+        return axios.get(VIEW_BASE_URL+'/export-to-excel')
+    }
     
 
 }

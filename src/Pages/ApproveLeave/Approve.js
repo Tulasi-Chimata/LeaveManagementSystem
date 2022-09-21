@@ -71,13 +71,13 @@ function Approve() {
         <br></br>
       <br />
       <br />
-      <div>
+      <div className="container">
         <BootStrap.Row xs={1} md={4}>
           {leaves.map((leaves) => (
             <BootStrap.Col>
               <div>
                 <BootStrap.CardGroup>
-                  <BootStrap.Card>
+                  <BootStrap.Card style={{ width: "100%"}}>
                     <BootStrap.Card.Body>
                       <BootStrap.Card.Text>
                         StartDate : {leaves.startDate}
@@ -95,7 +95,8 @@ function Approve() {
                         Supervisor : {leaves.supervisor}
                       </BootStrap.Card.Text>
                     </BootStrap.Card.Body>
-                    <BootStrap.Button
+                    <BootStrap.Button 
+                      style={{width:"50%",position:"absolute",marginLeft:"5%",marginTop:"70%"}}
                       onClick={() =>
                         review(leaves.leaverequestid, leaves.status)
                       }
@@ -118,7 +119,7 @@ function Approve() {
 
                     {data.roleCode === "MANAGER" &&
                       leaves.status === "Approved" && (
-                        <BootStrap.Button
+                        <BootStrap.Button  style={{width:"30%",position:"absolute",marginLeft:"65%",marginTop:"70%"}}
                           className="btn btn-danger"
                           onClick={() => redirect(leaves.leaverequestid)}
                         >
@@ -130,7 +131,7 @@ function Approve() {
 
                     {data.roleCode === "MANAGER" &&
                       leaves.status === "Rejected" && (
-                        <BootStrap.Button
+                        <BootStrap.Button   style={{width:"30%",position:"absolute",marginLeft:"65%",marginTop:"70%"}}
                           className="btn btn-danger"
                           onClick={() => redirect(leaves.leaverequestid)}
                         >

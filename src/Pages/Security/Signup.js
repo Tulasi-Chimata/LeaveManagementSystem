@@ -33,8 +33,7 @@ function Signup() {
         setPassword("123456789")
       },[])
 
-
-      useEffect(()=>{
+     /* useEffect(()=>{
         if(!localStorage.getItem("USER_KEY")){
             usenavigate('/')
         }else if(localStorage.getItem("USER_KEY")){
@@ -42,7 +41,7 @@ function Signup() {
                 usenavigate('/')
             }
         }
-      })
+      })*/
 
     const handleClick = (e) =>{
         e.preventDefault()

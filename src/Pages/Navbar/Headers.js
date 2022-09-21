@@ -39,11 +39,14 @@ function Headers() {
                 <Nav.Link href="/approvallist">Approve Leave</Nav.Link>
               )}
 
-            {data &&
+            
+{data &&
               data.roles &&
               data.roles.filter((value) => value.roleCode === "ADMIN")
-                .length && <Nav.Link href="/profile">Profile</Nav.Link>}
+                .length && <Nav.Link href="/changepassword">ChangePassword</Nav.Link>}
 
+
+                
             {data &&
               data.roles &&
               data.roles.filter((value) => value.roleCode === "ADMIN")
@@ -53,6 +56,16 @@ function Headers() {
               data.roles &&
               data.roles.filter((value) => value.roleCode === "MANAGER")
                 .length && <Nav.Link href="/calendar">Calendar</Nav.Link>}
+
+{data &&
+              data.roles &&
+              data.roles.filter((value) => value.roleCode === "ADMIN")
+                .length && <Nav.Link href="/profile">Profile</Nav.Link>}
+
+                {data &&
+              data.roles &&
+              data.roles.filter((value) => value.roleCode === "MANAGER")
+                .length && <Nav.Link href="/changepassword">ChangePassword</Nav.Link>}
             {data &&
               data.roles &&
               data.roles.filter((value) => value.roleCode === "USER")
@@ -62,11 +75,18 @@ function Headers() {
               data.roles.filter((value) => value.roleCode === "USER")
                 .length && <Nav.Link href="/profile">Profile</Nav.Link>}
 
+{data &&
+              data.roles &&
+              data.roles.filter((value) => value.roleCode === "USER")
+                .length && <Nav.Link href="/changepassword">ChangePassword</Nav.Link>}
+
+
             {data &&
               data.roles &&
               data.roles.filter((value) => value.roleCode === "USER")
                 .length && <Nav.Link href="/calendar">Calendar</Nav.Link>}
-
+                
+ <Nav.Link href="/chart">Chart</Nav.Link>
             <Nav.Link className="logoutcss" onClick={() => Logout()}>
               Logout
             </Nav.Link>

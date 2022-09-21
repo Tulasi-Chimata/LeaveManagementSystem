@@ -1,0 +1,25 @@
+.chart{
+    background-color: white;
+}
+
+.analysis{
+    margin-left: 5%;
+    padding-top: 4%;
+    
+    font-size: xx-large;
+    font-family: fantasy;
+    letter-spacing: 1ch;
+    cursor: pointer;
+    pointer-events:none;
+    
+}
+
+.avaliablejordan{
+    margin-left: 5%;
+    
+    
+    font-size: xx-large;
+    font-family: fantasy;
+    cursor: pointer;
+    pointer-events:none;
+}
