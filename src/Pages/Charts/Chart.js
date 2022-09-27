@@ -15,7 +15,10 @@ function Chart() {
 
 
     useEffect(() => {
-        getByValues()
+        
+            getByValues()
+        
+        
     }, [])
 
 
@@ -50,6 +53,7 @@ function Chart() {
                             backgroundColor: ['yellow','brown', 'green','skyblue','pink'],
                             data: [associateSoftware, consultant, engineer,powerProgrammer,leadConsultant],
                         },
+                        
                     ],
                 }}
                 labels="variety"

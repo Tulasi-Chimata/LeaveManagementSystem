@@ -37,7 +37,7 @@ function Routing() {
     }).catch((err)=>{
       console.log(err)
     })
-  })
+  },[])
   
   return (
     <BrowserRouter>
